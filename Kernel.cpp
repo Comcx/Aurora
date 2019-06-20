@@ -1,6 +1,6 @@
 
 #include "Types.h"
-
+#include "GDT.h"
 
 extern "C" void printf(char* str) {
 
@@ -75,7 +75,9 @@ extern "C" void
 kernelMain(void* multiboot_structure, uint32_t macgic) {
 
   printf("Aurora link start...\n");
-  printfHex32((int)kernelMain);
+
+  GDT gdt();
+  printf("Global descriptor table loaded...\n");
 
   while(true);
 }
