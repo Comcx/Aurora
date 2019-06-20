@@ -36,6 +36,7 @@ struct IDT {
   ~IDT();
 
   void activate();
+  void close();
 };
 
 

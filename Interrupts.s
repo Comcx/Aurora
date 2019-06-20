@@ -26,11 +26,20 @@ handleRequest 0x01
 
 int_bottom:
 
-  pusha
-  pushl %ds
-  pushl %es
-  pushl %fs
-  pushl %gs
+  //pusha
+  //pushl %ds
+  //pushl %es
+  //pushl %fs
+  //pushl %gs
+
+  pushl %ebp
+	pushl %edi
+	pushl %esi
+
+  pushl %edx
+  pushl %ecx
+	pushl %ebx
+	pushl %eax
 
   pushl %esp
   push (intNum)
@@ -38,11 +47,22 @@ int_bottom:
   //add $5, %esp
   movl %eax, %esp
 
-  popl %gs
-  popl %fs
-  popl %es
-  popl %ds
-  popa
+  popl %eax
+	popl %ebx
+	popl %ecx
+	popl %edx
+
+	popl %esi
+	popl %edi
+	popl %ebp
+
+  //popl %gs
+  //popl %fs
+  //popl %es
+  //popl %ds
+  //popa
+
+  add $4, %esp
 
 interruptNull:
 

@@ -1,9 +1,10 @@
 #include "IDT.h"
-
+#include "Port.h"
 
 void printf(char *s);
 
 GateDesc IDT::idt[256];
+static bool acted = false;
 
 GateDesc::GateDesc(uint16_t offset,
                    void (*handler)(),
@@ -30,6 +31,21 @@ IDT::IDT(GDT *gdt) {
   idt[0x20] = GateDesc(codeSegment, &interrupt0x00, 0, IDT_INTERRUPT_GATE);
   idt[0x21] = GateDesc(codeSegment, &interrupt0x01, 0, IDT_INTERRUPT_GATE);
 
+  out8Slow(0x20, 0x11);
+  out8Slow(0xA0, 0x11);
+
+  out8Slow(0x21, 0x20);
+  out8Slow(0xA1, 0x28);
+
+  out8Slow(0x21, 0x04);
+  out8Slow(0xA1, 0x02);
+
+  out8Slow(0x21, 0x01);
+  out8Slow(0xA1, 0x01);
+
+  out8Slow(0x21, 0x00);
+  out8Slow(0xA1, 0x00);
+
   IDTPointer p;
   p.size = 256 * sizeof(GateDesc);
   p.base = (uint32_t)idt;
@@ -40,13 +56,37 @@ IDT::~IDT() {}
 
 void IDT::activate() {
 
-  asm("sti");
+  if(!acted) {
+    asm("sti");
+    acted = true;
+  }
+}
+void IDT::close() {
+
+  if(acted) {
+    asm("cli");
+    acted = false;
+  }
 }
 
 
+uint32_t handleInterrupt(uint8_t n, uint32_t esp) {
+
+  printf("Interrupt! ");
+
+  if(0x20 <= n && n < 0x30) {
+
+    out8Slow(0x20, 0x20);
+    if(0x28 <= n)
+      out8Slow(0xA0, 0x20);
+  }
+
+  return esp;
+}
 extern "C" uint32_t interrupt(uint8_t n, uint32_t esp) {
 
-  printf("Interrupt!\n");
+  if(acted)
+    return handleInterrupt(n, esp);
 
   return esp;
 }
