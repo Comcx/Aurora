@@ -34,7 +34,9 @@ public:
   GDT();
   ~GDT();
 
-} __attribute__((packed));
+  uint16_t dataSegment();
+  uint16_t codeSegment();
+}__attribute__((packed));
 
 
 

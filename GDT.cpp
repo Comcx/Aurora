@@ -59,6 +59,18 @@ SegDesc::SegDesc(uint32_t base, uint32_t limit, uint8_t type) {
 }
 
 
+uint16_t GDT::dataSegment() {
+
+  return (uint8_t*)&dataSegSelector - (uint8_t*)this;
+}
+
+uint16_t GDT::codeSegment() {
+
+  return (uint8_t*)&codeSegSelector - (uint8_t*)this;
+}
+
+
+
 uint32_t SegDesc::base() {
 
   uint8_t* target = (uint8_t*)this;

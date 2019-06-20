@@ -1,8 +1,9 @@
 
 #include "Types.h"
 #include "GDT.h"
+#include "IDT.h"
 
-extern "C" void printf(char* str) {
+void printf(char* str) {
 
     static uint16_t* VideoMemory = (uint16_t*)0xb8000;
 
@@ -76,8 +77,12 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
 
   printf("Aurora link start...\n");
 
-  GDT gdt();
-  printf("Global descriptor table loaded...\n");
+  GDT gdt;
+  printf("Global descriptor table loaded\n");
+
+  IDT idt(&gdt);
+  idt.activate();
+  printf("Interruption table loaded\n");
 
   while(true);
 }
