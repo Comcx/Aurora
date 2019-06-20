@@ -27,6 +27,8 @@ struct IDTPointer {
   uint32_t base;
 } __attribute__((packed));
 
+
+
 struct IDT {
 
   static GateDesc idt[256];

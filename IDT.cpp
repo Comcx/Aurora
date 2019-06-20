@@ -2,8 +2,10 @@
 #include "Port.h"
 
 void printf(char *s);
+void printfHex(uint8_t k);
 
 GateDesc IDT::idt[256];
+bool isHandled[256];
 static bool acted = false;
 
 GateDesc::GateDesc(uint16_t offset,
@@ -25,11 +27,16 @@ IDT::IDT(GDT *gdt) {
   uint16_t codeSegment = gdt->codeSegment();
   const uint8_t IDT_INTERRUPT_GATE = 0xE;
 
-  for(uint16_t i = 0; i < 256; ++i)
-    idt[i] = GateDesc(codeSegment, &interruptNull, 0, IDT_INTERRUPT_GATE);
+  for(uint16_t i = 0; i < 256; ++i) {
 
+    isHandled[i] = false;
+    idt[i] = GateDesc(codeSegment, &interruptNull, 0, IDT_INTERRUPT_GATE);
+  }
   idt[0x20] = GateDesc(codeSegment, &interrupt0x00, 0, IDT_INTERRUPT_GATE);
   idt[0x21] = GateDesc(codeSegment, &interrupt0x01, 0, IDT_INTERRUPT_GATE);
+
+  isHandled[0x20] = true;
+  isHandled[0x21] = true;
 
   out8Slow(0x20, 0x11);
   out8Slow(0xA0, 0x11);
@@ -72,7 +79,17 @@ void IDT::close() {
 
 uint32_t handleInterrupt(uint8_t n, uint32_t esp) {
 
-  printf("Interrupt! ");
+  //if(isHandled[n]) {
+
+    //esp = handlers[interrupt]->HandleInterrupt(esp);
+  //}
+  //else
+  if(n != 0x20) {
+
+    printf("Interrupt 0x");
+    printfHex(n);
+    printf("\n");
+  }
 
   if(0x20 <= n && n < 0x30) {
 
