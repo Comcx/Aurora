@@ -5,7 +5,21 @@
 #include "Port.h"
 #include "IDT.h"
 
-const keyboardId = 0x21;
+const int keyboardId = 0x21;
+
+struct Keyboard : public InterruptHandler {
+
+ private:
+  static const uint16_t dataPort = 0x60;
+  static const uint16_t textPort = 0x64;
+
+ public:
+  Keyboard();
+  ~Keyboard();
+
+  uint32_t handle(uint32_t esp);
+
+};
 
 
 

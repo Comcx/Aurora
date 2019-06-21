@@ -3,7 +3,13 @@ CPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-excep
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = Loader.o GDT.o Port.o Interrupts.o IDT.o Kernel.o
+objects = Loader.o \
+          GDT.o \
+          Port.o \
+          Interrupts.o \
+          IDT.o \
+          Keyboard.o \
+          Kernel.o
 
 %.o: %.cpp
 	g++ $(CPPPARAMS) -o $@ -c $<

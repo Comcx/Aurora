@@ -81,7 +81,7 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   printf("Global descriptor table loaded\n");
 
   IDT idt(&gdt);
-  idt.activate();
+  enable(&idt);
   printf("Interruption table loaded\n");
 
   while(true);

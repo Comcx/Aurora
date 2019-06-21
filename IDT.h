@@ -27,20 +27,27 @@ struct IDTPointer {
   uint32_t base;
 } __attribute__((packed));
 
+struct InterruptHandler {
 
+  uint8_t n;
+
+  InterruptHandler() {}
+  InterruptHandler(uint8_t num): n(num) {}
+  virtual uint32_t handle(uint32_t esp);
+};
 
 struct IDT {
 
   static GateDesc idt[256];
+  static InterruptHandler *handlers[256];
 
   IDT() {}
   IDT(GDT *gdt);
   ~IDT();
-
-  void activate();
-  void close();
 };
 
+void enable(IDT *idt);
+void unable(IDT *idt);
 
 extern "C" uint32_t interrupt(uint8_t n, uint32_t esp);
 

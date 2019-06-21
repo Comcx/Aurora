@@ -5,6 +5,7 @@ void printf(char *s);
 void printfHex(uint8_t k);
 
 GateDesc IDT::idt[256];
+InterruptHandler *IDT::handlers[256];
 bool isHandled[256];
 static bool acted = false;
 
@@ -22,6 +23,13 @@ GateDesc::GateDesc(uint16_t offset,
   this->reserved = 0;
 }
 
+
+uint32_t InterruptHandler::handle(uint32_t esp)  {
+
+  return esp;
+}
+
+
 IDT::IDT(GDT *gdt) {
 
   uint16_t codeSegment = gdt->codeSegment();
@@ -29,9 +37,10 @@ IDT::IDT(GDT *gdt) {
 
   for(uint16_t i = 0; i < 256; ++i) {
 
-    isHandled[i] = false;
+    handlers[i] = 0;
     idt[i] = GateDesc(codeSegment, &interruptNull, 0, IDT_INTERRUPT_GATE);
   }
+
   idt[0x20] = GateDesc(codeSegment, &interrupt0x00, 0, IDT_INTERRUPT_GATE);
   idt[0x21] = GateDesc(codeSegment, &interrupt0x01, 0, IDT_INTERRUPT_GATE);
 
@@ -61,14 +70,14 @@ IDT::IDT(GDT *gdt) {
 
 IDT::~IDT() {}
 
-void IDT::activate() {
+void enable(IDT *idt) {
 
   if(!acted) {
     asm("sti");
     acted = true;
   }
 }
-void IDT::close() {
+void unable(IDT *idt) {
 
   if(acted) {
     asm("cli");
@@ -79,12 +88,11 @@ void IDT::close() {
 
 uint32_t handleInterrupt(uint8_t n, uint32_t esp) {
 
-  //if(isHandled[n]) {
+  if(IDT::handlers[n]) {
 
-    //esp = handlers[interrupt]->HandleInterrupt(esp);
-  //}
-  //else
-  if(n != 0x20) {
+    esp = IDT::handlers[n]->handle(esp);
+  }
+  else if(n != 0x20) {
 
     printf("Interrupt 0x");
     printfHex(n);
