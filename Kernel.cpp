@@ -76,18 +76,18 @@ callConstructors() {
 extern "C" void
 kernelMain(void* multiboot_structure, uint32_t macgic) {
 
-  printf("Aurora link start...\n");
+  printf("=> Aurora link start...\n");
 
   GDT gdt;
-  printf("Global descriptor table loaded\n");
+  printf("\n=> Global descriptor table loaded");
 
   IDT idt(&gdt);
   enable(&idt);
-  printf("Interruption table loaded\n");
+  printf("\n=> Interruption table loaded");
 
   Keyboard keyboard;
   enable(&keyboard);
-  printf("Keyboard loaded\n");
+  printf("\n=> Keyboard loaded");
 
   while(true);
 }
