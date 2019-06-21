@@ -6,7 +6,6 @@ void printfHex(uint8_t k);
 
 GateDesc IDT::idt[256];
 InterruptHandler *IDT::handlers[256];
-bool isHandled[256];
 static bool acted = false;
 
 GateDesc::GateDesc(uint16_t offset,
@@ -44,9 +43,7 @@ IDT::IDT(GDT *gdt) {
   idt[0x20] = GateDesc(codeSegment, &interrupt0x00, 0, IDT_INTERRUPT_GATE);
   idt[0x21] = GateDesc(codeSegment, &interrupt0x01, 0, IDT_INTERRUPT_GATE);
 
-  isHandled[0x20] = true;
-  isHandled[0x21] = true;
-
+  //remap
   out8Slow(0x20, 0x11);
   out8Slow(0xA0, 0x11);
 

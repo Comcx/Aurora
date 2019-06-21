@@ -9,11 +9,9 @@ const int keyboardId = 0x21;
 
 struct Keyboard : public InterruptHandler {
 
- private:
   static const uint16_t dataPort = 0x60;
   static const uint16_t textPort = 0x64;
 
- public:
   Keyboard();
   ~Keyboard();
 
