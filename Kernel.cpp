@@ -2,6 +2,7 @@
 #include "Types.h"
 #include "GDT.h"
 #include "IDT.h"
+#include "Keyboard.h"
 
 void printf(char* str) {
 
@@ -83,6 +84,10 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   IDT idt(&gdt);
   enable(&idt);
   printf("Interruption table loaded\n");
+
+  Keyboard keyboard;
+  enable(&keyboard);
+  printf("Keyboard loaded\n");
 
   while(true);
 }

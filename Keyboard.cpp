@@ -6,6 +6,8 @@ void printfHex(uint8_t);
 
 static void onKeyDown(char c) {
 
+  char s[2] = {c};
+  printf(s);
 }
 static void onKeyUp(char c) {
 
@@ -19,9 +21,16 @@ Keyboard::Keyboard()
 
 Keyboard::~Keyboard() {}
 
+uint32_t keyboardHandler(uint32_t esp);
 uint32_t Keyboard::handle(uint32_t esp) {
 
-  uint8_t key = in8(dataPort);
+  return keyboardHandler(esp);
+}
+
+
+uint32_t keyboardHandler(uint32_t esp) {
+
+  uint8_t key = in8(Keyboard::dataPort);
 
   if(key < 0x80) {
 
@@ -88,6 +97,9 @@ uint32_t Keyboard::handle(uint32_t esp) {
 
 
 void enable(Keyboard *kb) {
+
+  //uint32_t(Keyboard::*)(uint32_t) fp = &Keyboard::handle;
+  IDT::handlers[0x21] = kb;
 
   uint16_t textPort = kb->textPort;
   uint16_t dataPort = kb->dataPort;

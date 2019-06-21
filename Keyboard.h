@@ -20,7 +20,7 @@ struct Keyboard : public InterruptHandler {
 };
 
 
-
+void enable(Keyboard *kb);
 
 
 #endif
