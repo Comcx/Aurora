@@ -83,7 +83,7 @@ uint32_t keyboardHandler(uint32_t esp) {
     case 0x39: onKeyDown(' '); break;
 
     default: {
-        printf("KEYBOARD 0x");
+        printf("KEY 0x");
         printfHex(key);
         break;
       }
@@ -99,6 +99,7 @@ uint32_t keyboardHandler(uint32_t esp) {
 void enable(Keyboard *kb) {
 
   //uint32_t(Keyboard::*)(uint32_t) fp = &Keyboard::handle;
+  if(kb->acted) return;
   IDT::handlers[0x21] = kb;
 
   uint16_t textPort = kb->textPort;
@@ -112,6 +113,8 @@ void enable(Keyboard *kb) {
   out8(textPort, 0x60); // command 0x60 = set controller command byte
   out8(dataPort, status);
   out8(dataPort, 0xf4);
+
+  kb->acted = true;
 }
 
 

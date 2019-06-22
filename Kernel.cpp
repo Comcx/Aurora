@@ -3,6 +3,7 @@
 #include "GDT.h"
 #include "IDT.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 
 void printf(char* str) {
 
@@ -88,6 +89,10 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   Keyboard keyboard;
   enable(&keyboard);
   printf("\n=> Keyboard loaded");
+
+  Mouse mouse;
+  enable(&mouse);
+  printf("\n=> Mouse loaded");
 
   while(true);
 }

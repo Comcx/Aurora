@@ -30,9 +30,10 @@ struct IDTPointer {
 struct InterruptHandler {
 
   uint8_t n;
+  bool acted;
 
   InterruptHandler() {}
-  InterruptHandler(uint8_t num): n(num) {}
+  InterruptHandler(uint8_t num): n(num), acted(false) {}
   virtual uint32_t handle(uint32_t esp);
 };
 
@@ -54,7 +55,7 @@ extern "C" uint32_t interrupt(uint8_t n, uint32_t esp);
 extern "C" void interruptNull();
 extern "C" void interrupt0x00();
 extern "C" void interrupt0x01();
-
+extern "C" void interrupt0x0C();
 
 
 

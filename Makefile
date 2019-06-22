@@ -9,6 +9,7 @@ objects = Loader.o \
           Interrupts.o \
           IDT.o \
           Keyboard.o \
+          Mouse.o \
           Kernel.o
 
 %.o: %.cpp

@@ -42,6 +42,7 @@ IDT::IDT(GDT *gdt) {
 
   idt[0x20] = GateDesc(codeSegment, &interrupt0x00, 0, IDT_INTERRUPT_GATE);
   idt[0x21] = GateDesc(codeSegment, &interrupt0x01, 0, IDT_INTERRUPT_GATE);
+  idt[0x2C] = GateDesc(codeSegment, &interrupt0x0C, 0, IDT_INTERRUPT_GATE);
 
   //remap
   out8Slow(0x20, 0x11);

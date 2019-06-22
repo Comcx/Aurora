@@ -21,7 +21,7 @@ interrupt\num:
 
 handleRequest 0x00
 handleRequest 0x01
-
+handleRequest 0x0C
 
 
 int_bottom:
