@@ -6,12 +6,12 @@ void printfHex(uint8_t);
 
 void Mouse::onMouseDown(uint8_t button) {
 
-  //printf("Mouse down ");
+  printf("Mouse down ");
 }
 
 void Mouse::onMouseUp(uint8_t button) {
 
-  //printf("Mouse up ");
+  printf("Mouse up ");
 }
 
 void Mouse::onMouseMove(int xoffset, int yoffset) {
@@ -61,8 +61,8 @@ void enable(Mouse *ms) {
   ms->offset = 0;
   ms->buttons = 0;
 
-  uint16_t textPort = ms->textPort;
-  uint16_t dataPort = ms->dataPort;
+  uint16_t textPort = Mouse::textPort;
+  uint16_t dataPort = Mouse::dataPort;
 
   out8(textPort, 0xA8);
   out8(textPort, 0x20); // command 0x60 = read controller command byte
@@ -86,14 +86,14 @@ uint32_t Mouse::handle(uint32_t esp) {
 
   if(offset == 0) {
 
-    if(buffer[1] != 0 || buffer[2] != 0) {
+    if(buffer[2] != 0 || buffer[0] != 0) {
 
-      onMouseMove((int8_t)buffer[1], -((int8_t)buffer[2]));
+      onMouseMove((int8_t)buffer[2], -((int8_t)buffer[0]));
     }
 
     for(uint8_t i = 0; i < 3; i++) {
 
-      if((buffer[0] & (0x1<<i)) != (buttons & (0x1<<i))) {
+      if((buffer[1] & (0x1<<i)) != (buttons & (0x1<<i))) {
 
         if(buttons & (0x1<<i))
           onMouseUp(i+1);
@@ -101,7 +101,7 @@ uint32_t Mouse::handle(uint32_t esp) {
           onMouseDown(i+1);
       }
     }
-    buttons = buffer[0];
+    buttons = buffer[1];
   }
 
   return esp;
