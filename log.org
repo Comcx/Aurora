@@ -1,0 +1,22 @@
+#+TITLE:  Aurora Language developing log
+#+AUTHOR: Comcx
+
+
+* Kernel stage
+** DONE Boot loader use grub
+** DONE Enable GDT
+** DONE Enable IDT and interruptions
+** DONE Enable keyboard
+** DONE Enable mouse
+** TODO Enable multitasking
+** TODO Enable virtual memory management
+** TODO PCI and exceptions
+** TODO Shell
+** TODO Language general design
+
+
+
+
+
+
+

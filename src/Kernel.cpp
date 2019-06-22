@@ -95,10 +95,10 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   enable(&mouse);
   printf("\n=> Mouse loaded");
 
-  uint8_t date =   Time::date();
-  uint8_t hour =   Time::hour();
-  uint8_t year =   Time::year();
-  uint8_t month =  Time::month();
+  uint8_t date   = Time::date();
+  uint8_t hour   = Time::hour();
+  uint8_t year   = Time::year();
+  uint8_t month  = Time::month();
   uint8_t minute = Time::minute();
   printf("\n=> Time: ");
   printfHex(year);
