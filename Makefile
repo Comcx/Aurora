@@ -7,6 +7,7 @@ objects = obj/Loader.o \
           obj/GDT.o \
           obj/Port.o \
           obj/Interrupts.o \
+          obj/Time.o \
           obj/IDT.o \
           obj/Keyboard.o \
           obj/Mouse.o \

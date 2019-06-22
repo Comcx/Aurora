@@ -4,6 +4,7 @@
 #include <IDT.h>
 #include <Keyboard.h>
 #include <Mouse.h>
+#include <Time.h>
 
 void printf(char* str) {
 
@@ -93,6 +94,21 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   Mouse mouse;
   enable(&mouse);
   printf("\n=> Mouse loaded");
+
+  uint8_t date =   Time::date();
+  uint8_t hour =   Time::hour();
+  uint8_t year =   Time::year();
+  uint8_t month =  Time::month();
+  uint8_t minute = Time::minute();
+  printf("\n=> Time: ");
+  printfHex(year);
+  printf(":");
+  printfHex(date);
+  printf(":");
+  printfHex(hour);
+  printf(":");
+  printfHex(minute);
+
 
   while(true);
 }
