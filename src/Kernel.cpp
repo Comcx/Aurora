@@ -1,9 +1,9 @@
 
-#include "Types.h"
-#include "GDT.h"
-#include "IDT.h"
-#include "Keyboard.h"
-#include "Mouse.h"
+#include <Types.h>
+#include <GDT.h>
+#include <IDT.h>
+#include <Keyboard.h>
+#include <Mouse.h>
 
 void printf(char* str) {
 

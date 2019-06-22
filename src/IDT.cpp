@@ -1,5 +1,5 @@
-#include "IDT.h"
-#include "Port.h"
+#include <IDT.h>
+#include <Port.h>
 
 void printf(char *s);
 void printfHex(uint8_t k);

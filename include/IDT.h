@@ -1,9 +1,9 @@
 #ifndef IDT_H
 #define IDT_H
 
-#include "Types.h"
-#include "Port.h"
-#include "GDT.h"
+#include <Types.h>
+#include <Port.h>
+#include <GDT.h>
 
 
 struct GateDesc {

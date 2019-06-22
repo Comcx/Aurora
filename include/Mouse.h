@@ -1,9 +1,9 @@
 #ifndef MOUSE_H
 #define MOUSE_H
 
-#include "Types.h"
-#include "Port.h"
-#include "IDT.h"
+#include <Types.h>
+#include <Port.h>
+#include <IDT.h>
 
 const int mouseId = 0x21;
 

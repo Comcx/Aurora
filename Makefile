@@ -1,21 +1,23 @@
 
-CPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
+CPPPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = Loader.o \
-          GDT.o \
-          Port.o \
-          Interrupts.o \
-          IDT.o \
-          Keyboard.o \
-          Mouse.o \
-          Kernel.o
+objects = obj/Loader.o \
+          obj/GDT.o \
+          obj/Port.o \
+          obj/Interrupts.o \
+          obj/IDT.o \
+          obj/Keyboard.o \
+          obj/Mouse.o \
+          obj/Kernel.o
 
-%.o: %.cpp
+obj/%.o: src/%.cpp
+	mkdir -p $(@D)
 	g++ $(CPPPARAMS) -o $@ -c $<
 
-%.o: %.s
+obj/%.o: src/%.s
+	mkdir -p $(@D)
 	as $(ASPARAMS) -o $@ $<
 
 Kernel.bin: Linker.ld $(objects)
@@ -29,19 +31,19 @@ Aurora.iso: Kernel.bin
 	mkdir iso/boot
 	mkdir iso/boot/grub
 	cp $< iso/boot
-	echo 'set timeout=0' >  iso/boot/grub/grub.cfg
-	echo 'set default=0' >> iso/boot/grub/grub.cfg
-	echo '' >> iso/boot/grub/grub.cfg
-	echo 'menuentry "Aurora.OS" {' >> iso/boot/grub/grub.cfg
+	echo 'set timeout=0'                >  iso/boot/grub/grub.cfg
+	echo 'set default=0'                >> iso/boot/grub/grub.cfg
+	echo ''                             >> iso/boot/grub/grub.cfg
+	echo 'menuentry "Aurora.OS" {'      >> iso/boot/grub/grub.cfg
 	echo '  multiboot /boot/Kernel.bin' >> iso/boot/grub/grub.cfg
-	echo '  boot' >> iso/boot/grub/grub.cfg
-	echo '}' >> iso/boot/grub/grub.cfg
+	echo '  boot'                       >> iso/boot/grub/grub.cfg
+	echo '}'                            >> iso/boot/grub/grub.cfg
 	grub-mkrescue --output=$@ iso
 	rm -rf iso
 
 clean:
-	rm *.o
-	rm *.bin
+	rm -rf obj
+	rm Kernel.bin
 	rm Aurora.iso
 
 

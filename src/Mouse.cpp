@@ -1,4 +1,4 @@
-#include "Mouse.h"
+#include <Mouse.h>
 
 
 void printf(char *s);
@@ -29,12 +29,13 @@ void Mouse::onMouseMove(int xoffset, int yoffset) {
   y += yoffset;
   if(y >= 25) y = 24;
   if(y < 0) y = 0;
-
+  /*
   printf("X: ");
   printfHex(xoffset);
   printf(", y: ");
   printfHex(yoffset);
   printf("\n");
+  */
 
   VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0x0F00) << 4
                       | (VideoMemory[80*y+x] & 0xF000) >> 4
