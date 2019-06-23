@@ -2,7 +2,7 @@
 #define MOUSE_H
 
 #include <Types.h>
-#include <Hardware/Port.h>
+#include <Hardware/IO.h>
 #include <IDT.h>
 
 const int mouseId = 0x21;

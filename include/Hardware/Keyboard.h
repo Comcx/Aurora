@@ -2,7 +2,7 @@
 #define KEYBOARD_H
 
 #include <Types.h>
-#include <Hardware/Port.h>
+#include <Hardware/IO.h>
 #include <IDT.h>
 
 const int keyboardId = 0x21;
