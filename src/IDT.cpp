@@ -29,6 +29,8 @@ uint32_t InterruptHandler::handle(uint32_t esp)  {
 
   return esp;
 }
+void InterruptHandler::enable() {}
+void InterruptHandler::unable() {}
 
 
 IDT::IDT(GDT *gdt) {
@@ -71,14 +73,14 @@ IDT::IDT(GDT *gdt) {
 
 IDT::~IDT() {}
 
-void enable(IDT *idt) {
+void IDT::enable() {
 
   if(!acted) {
     asm("sti");
     acted = true;
   }
 }
-void unable(IDT *idt) {
+void IDT::unable() {
 
   if(acted) {
     asm("cli");

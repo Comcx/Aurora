@@ -2,8 +2,10 @@
 #define KEYBOARD_H
 
 #include <Types.h>
+#include <Hardware/Screen.h>
 #include <Hardware/IO.h>
 #include <IDT.h>
+#include <File/File.h>
 
 const int keyboardId = 0x21;
 
@@ -16,11 +18,11 @@ struct Keyboard : public InterruptHandler {
   ~Keyboard();
 
   uint32_t handle(uint32_t esp);
-
+  void enable();
 };
 
 
-void enable(Keyboard *kb);
+
 
 
 #endif

@@ -1,13 +1,18 @@
 #include <Hardware/Keyboard.h>
 
 
-void printf(char *str);
-void printfHex(uint8_t);
+extern void printf(char *str);
+extern void printfHex(uint8_t);
 
 static void onKeyDown(char c) {
 
   char s[2] = {c};
   printf(s);
+
+  char tmp[256];
+
+  Files::stdin.write(c);
+  //if(Files::stdin.isFlushing()) Files::stdin.read(tmp);
 }
 static void onKeyUp(char c) {
 
@@ -96,14 +101,11 @@ uint32_t keyboardHandler(uint32_t esp) {
 
 
 
-void enable(Keyboard *kb) {
+void Keyboard::enable() {
 
   //uint32_t(Keyboard::*)(uint32_t) fp = &Keyboard::handle;
-  if(kb->acted) return;
-  IDT::handlers[0x21] = kb;
-
-  uint16_t textPort = kb->textPort;
-  uint16_t dataPort = kb->dataPort;
+  if(acted) return;
+  IDT::handlers[0x21] = this;
 
   while(in8(textPort) & 0x1)
     in8(dataPort);
@@ -114,7 +116,7 @@ void enable(Keyboard *kb) {
   out8(dataPort, status);
   out8(dataPort, 0xf4);
 
-  kb->acted = true;
+  acted = true;
 }
 
 

@@ -2,6 +2,8 @@
 #define IDT_H
 
 #include <Types.h>
+#include <Hardware/Hardware.h>
+#include <Hardware/Screen.h>
 #include <Hardware/IO.h>
 #include <GDT.h>
 #include <Task.h>
@@ -28,7 +30,7 @@ struct IDTPointer {
   uint32_t base;
 } __attribute__((packed));
 
-struct InterruptHandler {
+struct InterruptHandler : public Hardware {
 
   uint8_t n;
   bool acted;
@@ -36,9 +38,12 @@ struct InterruptHandler {
   InterruptHandler() {}
   InterruptHandler(uint8_t num): n(num), acted(false) {}
   virtual uint32_t handle(uint32_t esp);
+
+  virtual void enable();
+  virtual void unable();
 };
 
-struct IDT {
+struct IDT : public Hardware {
 
   static GateDesc idt[256];
   static InterruptHandler *handlers[256];
@@ -47,10 +52,13 @@ struct IDT {
   IDT() {}
   IDT(GDT *gdt);
   ~IDT();
+
+  void enable();
+  void unable();
 };
 
-void enable(IDT *idt);
-void unable(IDT *idt);
+//void enable(IDT *idt);
+//void unable(IDT *idt);
 
 extern "C" uint32_t interrupt(uint8_t n, uint32_t esp);
 

@@ -55,15 +55,12 @@ Mouse::Mouse(): InterruptHandler(0x2C) {
 
 Mouse::~Mouse() {}
 
-void enable(Mouse *ms) {
+void Mouse::enable() {
 
-  if(ms->acted) return;
-  IDT::handlers[0x2C] = ms;
-  ms->offset = 0;
-  ms->buttons = 0;
-
-  uint16_t textPort = Mouse::textPort;
-  uint16_t dataPort = Mouse::dataPort;
+  if(acted) return;
+  IDT::handlers[0x2C] = this;
+  offset = 0;
+  buttons = 0;
 
   out8(textPort, 0xA8);
   out8(textPort, 0x20); // command 0x60 = read controller command byte

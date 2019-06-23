@@ -25,10 +25,11 @@ struct Mouse : public InterruptHandler {
   void onMouseUp(uint8_t button);
   void onMouseMove(int x, int y);
 
+  void enable();
 };
 
 
-void enable(Mouse *ms);
+
 
 
 #endif
