@@ -7,7 +7,6 @@ Shell::~Shell() {}
 void Shell::start() {//just for basic test!!
 
   bool loop = true;
-
   char tmp[256];
   while(loop) {
     printf("\n> ");

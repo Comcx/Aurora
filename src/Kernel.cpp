@@ -69,6 +69,7 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   idt.enable();
   printf("\n=> Interruptions loaded");
 
+  printf("\n=> Going to shell...\n");
   shell.start();
 
   while(true);//for GUI later
