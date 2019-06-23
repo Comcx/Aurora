@@ -67,11 +67,11 @@ extern "C" void printfHex32(uint32_t key) {
 
 void taskA() {
 
-  while(true) printf("A");
+  while(true) printf(".");
 }
 void taskB() {
 
-  while(true) printf("B");
+  while(true) printf("-");
 }
 
 
@@ -92,23 +92,22 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   printf("=> Aurora link start...\n");
 
   GDT gdt;
-  printf("\n=> Global descriptor table loaded");
+  printf("\n=> Descriptor table loaded");
 
   IDT idt(&gdt);
-  printf("\n=> Interruption table loaded");
-
-  Task task1(&gdt, taskA);
-  Task task2(&gdt, taskB);
-  IDT::tasks.add(&task1);
-  IDT::tasks.add(&task2);
+  printf("\n=> Interruptions loaded");
 
   Keyboard keyboard;
   enable(&keyboard);
-  printf("\n=> Keyboard loaded");
 
   Mouse mouse;
   enable(&mouse);
-  printf("\n=> Mouse loaded");
+  printf("\n=> Hardware loaded");
+
+  Task task1(&gdt, taskA);
+  Task task2(&gdt, taskB);
+  //IDT::tasks.add(&task1);
+  //IDT::tasks.add(&task2);
 
   uint8_t date   = Time::date();
   uint8_t hour   = Time::hour();
@@ -117,6 +116,8 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   uint8_t minute = Time::minute();
   printf("\n=> Time: ");
   printfHex(year);
+  printf(":");
+  printfHex(month);
   printf(":");
   printfHex(date);
   printf(":");
