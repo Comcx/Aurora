@@ -3,9 +3,11 @@
 
 void printf(char *s);
 void printfHex(uint8_t k);
+//extern Tasks tasks;
 
 GateDesc IDT::idt[256];
 InterruptHandler *IDT::handlers[256];
+Tasks IDT::tasks;
 static bool acted = false;
 
 GateDesc::GateDesc(uint16_t offset,
@@ -31,6 +33,7 @@ uint32_t InterruptHandler::handle(uint32_t esp)  {
 
 IDT::IDT(GDT *gdt) {
 
+  //  this->tasks = tasks;
   uint16_t codeSegment = gdt->codeSegment();
   const uint8_t IDT_INTERRUPT_GATE = 0xE;
 
@@ -95,6 +98,12 @@ uint32_t handleInterrupt(uint8_t n, uint32_t esp) {
     printf("Interrupt 0x");
     printfHex(n);
     printf("\n");
+  }
+
+
+  if(n == 0x20) {
+
+    esp = (uint32_t)IDT::tasks.schedule((CPUState*)esp);
   }
 
   if(0x20 <= n && n < 0x30) {

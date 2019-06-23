@@ -87,14 +87,14 @@ uint32_t Mouse::handle(uint32_t esp) {
 
   if(offset == 0) {
 
-    if(buffer[2] != 0 || buffer[0] != 0) {
+    if(buffer[2] != 0 || buffer[1] != 0) {
 
-      onMouseMove((int8_t)buffer[2], -((int8_t)buffer[0]));
+      onMouseMove((int8_t)buffer[1], -((int8_t)buffer[2]));
     }
 
     for(uint8_t i = 0; i < 3; i++) {
 
-      if((buffer[1] & (0x1<<i)) != (buttons & (0x1<<i))) {
+      if((buffer[0] & (0x1<<i)) != (buttons & (0x1<<i))) {
 
         if(buttons & (0x1<<i))
           onMouseUp(i+1);
@@ -102,7 +102,7 @@ uint32_t Mouse::handle(uint32_t esp) {
           onMouseDown(i+1);
       }
     }
-    buttons = buffer[1];
+    buttons = buffer[0];
   }
 
   return esp;

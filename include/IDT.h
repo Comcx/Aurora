@@ -4,6 +4,7 @@
 #include <Types.h>
 #include <Port.h>
 #include <GDT.h>
+#include <Task.h>
 
 
 struct GateDesc {
@@ -41,6 +42,7 @@ struct IDT {
 
   static GateDesc idt[256];
   static InterruptHandler *handlers[256];
+  static Tasks tasks;
 
   IDT() {}
   IDT(GDT *gdt);

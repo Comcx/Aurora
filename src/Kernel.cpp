@@ -65,6 +65,17 @@ extern "C" void printfHex32(uint32_t key) {
 }
 
 
+void taskA() {
+
+  while(true) printf("A");
+}
+void taskB() {
+
+  while(true) printf("B");
+}
+
+
+
 typedef void (*constructor) ();
 extern "C" constructor start_ctors;
 extern "C" constructor end_ctors;
@@ -84,8 +95,12 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   printf("\n=> Global descriptor table loaded");
 
   IDT idt(&gdt);
-  enable(&idt);
   printf("\n=> Interruption table loaded");
+
+  Task task1(&gdt, taskA);
+  Task task2(&gdt, taskB);
+  IDT::tasks.add(&task1);
+  IDT::tasks.add(&task2);
 
   Keyboard keyboard;
   enable(&keyboard);
@@ -109,6 +124,8 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
   printf(":");
   printfHex(minute);
 
+
+  enable(&idt);
 
   while(true);
 }
