@@ -57,7 +57,7 @@ uint32_t keyboardHandler(uint32_t esp) {
     case 0x12: onKeyDown('e'); break;
     case 0x13: onKeyDown('r'); break;
     case 0x14: onKeyDown('t'); break;
-    case 0x15: onKeyDown('z'); break;
+    case 0x15: onKeyDown('y'); break;
     case 0x16: onKeyDown('u'); break;
     case 0x17: onKeyDown('i'); break;
     case 0x18: onKeyDown('o'); break;
@@ -73,7 +73,7 @@ uint32_t keyboardHandler(uint32_t esp) {
     case 0x25: onKeyDown('k'); break;
     case 0x26: onKeyDown('l'); break;
 
-    case 0x2C: onKeyDown('y'); break;
+    case 0x2C: onKeyDown('z'); break;
     case 0x2D: onKeyDown('x'); break;
     case 0x2E: onKeyDown('c'); break;
     case 0x2F: onKeyDown('v'); break;
@@ -82,7 +82,7 @@ uint32_t keyboardHandler(uint32_t esp) {
     case 0x32: onKeyDown('m'); break;
     case 0x33: onKeyDown(','); break;
     case 0x34: onKeyDown('.'); break;
-    case 0x35: onKeyDown('-'); break;
+    case 0x35: onKeyDown('/'); break;
 
     case 0x1C: onKeyDown('\n'); break;
     case 0x39: onKeyDown(' '); break;
