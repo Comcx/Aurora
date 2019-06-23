@@ -5,13 +5,13 @@ LDPARAMS = -melf_i386
 
 objects = obj/Loader.o \
           obj/GDT.o \
-          obj/Port.o \
+          obj/Hardware/Port.o \
           obj/Interrupts.o \
           obj/Task.o \
           obj/Time.o \
           obj/IDT.o \
-          obj/Keyboard.o \
-          obj/Mouse.o \
+          obj/Hardware/Keyboard.o \
+          obj/Hardware/Mouse.o \
           obj/Kernel.o
 
 obj/%.o: src/%.cpp
