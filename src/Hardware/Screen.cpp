@@ -7,6 +7,9 @@ Screen::Screen(uint16_t w, uint16_t h)
 }
 Screen::~Screen() {}
 
+void Screen::enable() {}
+void Screen::unable() {}
+
 void printf(char* str);
 void Screen::write(char *str) {
 

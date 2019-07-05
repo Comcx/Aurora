@@ -31,46 +31,39 @@ kernelMain(void* multiboot_structure, uint32_t macgic) {
 
   printf("=> Aurora link start...\n");
 
-  GDT&      gdt      = Computer::gdt;
-  IDT&      idt      = Computer::idt;
-  Keyboard& keyboard = Computer::keyboard;
-  Mouse&    mouse    = Computer::mouse;
-  Shell&    shell    = Computer::shell;
+  //Initializing basic modules
+  GDT      gdt;
+  IDT      idt(&gdt);
+  Screen   screen;
+  Keyboard keyboard;
+  Mouse    mouse;
+  Shell    shell;
 
-  keyboard.enable();
-  mouse   .enable();
-  printf("\n=> Hardware loaded");
+  //Pack basic modules
+  Skele skele;
+  skele.gdt      = &gdt;
+  skele.idt      = &idt;
+  skele.screen   = &screen;
+  skele.keyboard = &keyboard;
+  skele.mouse    = &mouse;
+  skele.shell    = &shell;
+
+  //Build our computer
+  Computer aurora(skele);
+  printf("\n=> Basic modules loaded");
 
   //Multitasking
-  Task task1(&Computer::gdt, taskA);
-  Task task2(&Computer::gdt, taskB);
+  Task task1(&gdt, taskA);
+  Task task2(&gdt, taskB);
   //IDT::tasks.add(&task1);
   //IDT::tasks.add(&task2);
 
   //Time
-  uint8_t date   = Time::date();
-  uint8_t hour   = Time::hour();
-  uint8_t year   = Time::year();
-  uint8_t month  = Time::month();
-  uint8_t minute = Time::minute();
-  printf("\n=> Time: ");
-  printfHex(year);
-  printf(":");
-  printfHex(month);
-  printf(":");
-  printfHex(date);
-  printf(":");
-  printfHex(hour);
-  printf(":");
-  printfHex(minute);
+  Time::show();
 
-
-  //Enable interruptions!
-  idt.enable();
-  printf("\n=> Interruptions loaded");
-
+  aurora.enable(); //Enable modules
   printf("\n=> Going to shell...\n");
-  shell.start();
+  aurora.shell->start();
 
   while(true);//for GUI later
 }

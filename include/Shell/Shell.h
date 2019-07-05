@@ -2,11 +2,11 @@
 #define SHELL_H
 
 #include <Types.h>
-#include <Hardware/Hardware.h>
+#include <Module.h>
 #include <Hardware/Screen.h>
 #include <File/File.h>
 
-class Shell : public Hardware {
+class Shell : public Module {
 
 private:
   int n;

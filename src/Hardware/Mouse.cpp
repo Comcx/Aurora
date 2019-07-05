@@ -73,6 +73,8 @@ void Mouse::enable() {
   in8(dataPort);
 }
 
+void Mouse::unable() {}
+
 uint32_t Mouse::handle(uint32_t esp) {
 
   uint8_t status = in8(textPort);

@@ -120,6 +120,7 @@ void Keyboard::enable() {
 }
 
 
+void Keyboard::unable() {}
 
 
 

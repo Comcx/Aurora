@@ -2,8 +2,9 @@
 #define SCREEN_H
 
 #include <Types.h>
+#include <Module.h>
 
-class Screen {
+class Screen : public Module {
 
 private:
   uint8_t mode;
@@ -18,6 +19,9 @@ public:
   uint16_t getWidth()  {return width;}
   uint16_t getHeight() {return height;}
   void write(char *str);
+
+  void enable();
+  void unable();
 };
 
 void printf(char *str);

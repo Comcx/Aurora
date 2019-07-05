@@ -1,7 +1,6 @@
 #include <Time.h>
 
 
-
 uint8_t CMOSRead(uint8_t addr) {
 
   out8Slow(0x70, 0x80|addr);
@@ -39,6 +38,25 @@ namespace Time {
   uint8_t year() {
 
     return CMOSRead(9);
+  }
+
+  void show() {
+
+    uint8_t date_   = date();
+    uint8_t hour_   = hour();
+    uint8_t year_   = year();
+    uint8_t month_  = month();
+    uint8_t minute_ = minute();
+    printf("\n=> Time: ");
+    printfHex(year_);
+    printf(":");
+    printfHex(month_);
+    printf(":");
+    printfHex(date_);
+    printf(":");
+    printfHex(hour_);
+    printf(":");
+    printfHex(minute_);
   }
 
 }

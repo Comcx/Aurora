@@ -2,6 +2,7 @@
 #define COMPUTER_H
 
 #include <Types.h>
+#include <Module.h>
 #include <GDT.h>
 #include <IDT.h>
 #include <Hardware/Screen.h>
@@ -10,16 +11,39 @@
 #include <Shell/Shell.h>
 #include <Time.h>
 
-class Computer {
+struct Skele {
+
+  GDT      *gdt;
+  IDT      *idt;
+  Screen   *screen;
+  Keyboard *keyboard;
+  Mouse    *mouse;
+
+  Shell    *shell;
+};
+
+
+class Computer : Module {
 
 public:
-  static GDT      gdt;
-  static IDT      idt;
-  static Screen   screen;
-  static Keyboard keyboard;
-  static Mouse    mouse;
+  GDT      *gdt;
+  IDT      *idt;
+  Screen   *screen;
+  Keyboard *keyboard;
+  Mouse    *mouse;
 
-  static Shell    shell;
+  Shell    *shell;
+
+  uint8_t index;
+  Module *module[256]; //256 max here
+
+  Computer();
+  Computer(Skele &skele);
+  ~Computer();
+  Computer& operator+=(Module *m);
+
+  void enable();
+  void unable();
 
 };
 

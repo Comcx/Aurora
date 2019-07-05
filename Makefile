@@ -1,11 +1,11 @@
 
-CPPPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
+CPPPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
 objects = obj/Loader.o \
           obj/GDT.o \
-          obj/Hardware/Hardware.o \
+          obj/Module.o \
           obj/Hardware/Screen.o \
           obj/File/File.o \
           obj/Hardware/IO.o \

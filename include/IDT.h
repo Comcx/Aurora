@@ -2,7 +2,7 @@
 #define IDT_H
 
 #include <Types.h>
-#include <Hardware/Hardware.h>
+#include <Module.h>
 #include <Hardware/Screen.h>
 #include <Hardware/IO.h>
 #include <GDT.h>
@@ -30,7 +30,7 @@ struct IDTPointer {
   uint32_t base;
 } __attribute__((packed));
 
-struct InterruptHandler : public Hardware {
+struct InterruptHandler : public Module {
 
   uint8_t n;
   bool acted;
@@ -43,7 +43,7 @@ struct InterruptHandler : public Hardware {
   virtual void unable();
 };
 
-struct IDT : public Hardware {
+struct IDT : public Module {
 
   static GateDesc idt[256];
   static InterruptHandler *handlers[256];

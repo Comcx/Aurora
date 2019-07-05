@@ -2,6 +2,7 @@
 #define MOUSE_H
 
 #include <Types.h>
+#include <Module.h>
 #include <Hardware/IO.h>
 #include <IDT.h>
 
@@ -26,6 +27,7 @@ struct Mouse : public InterruptHandler {
   void onMouseMove(int x, int y);
 
   void enable();
+  void unable();
 };
 
 

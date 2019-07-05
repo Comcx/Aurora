@@ -2,6 +2,7 @@
 #define GDT_H
 
 #include <Types.h>
+#include <Module.h>
 
 struct SegDesc {
 
@@ -36,6 +37,9 @@ public:
 
   uint16_t dataSegment();
   uint16_t codeSegment();
+
+  //void enable();
+  //void unable();
 }__attribute__((packed));
 
 

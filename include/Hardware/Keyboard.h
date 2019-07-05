@@ -19,6 +19,7 @@ struct Keyboard : public InterruptHandler {
 
   uint32_t handle(uint32_t esp);
   void enable();
+  void unable();
 };
 
 

@@ -98,4 +98,7 @@ uint32_t SegDesc::limit() {
 }
 
 
+//void GDT::enable() {}
+//void GDT::unable() {}
+
 
