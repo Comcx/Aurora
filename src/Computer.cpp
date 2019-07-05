@@ -17,7 +17,7 @@ Computer::Computer(Skele &s) : index(0) {
   module[index++] = this->keyboard = s.keyboard;
   module[index++] = this->mouse    = s.mouse;
   module[index++] = this->idt      = s.idt;
-  module[index++] = this->shell    = s.shell;
+  //module[index++] = this->shell    = s.shell;
 
 }
 Computer::~Computer() {}

@@ -1,7 +1,7 @@
 #ifndef MOUSE_H
 #define MOUSE_H
 
-#include <Types.h>
+#include <Util/Type.h>
 #include <Module.h>
 #include <Hardware/IO.h>
 #include <IDT.h>

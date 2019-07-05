@@ -1,8 +1,9 @@
 #ifndef _TASK_H
 #define _TASK_H
 
-#include <Types.h>
+#include <Util/Type.h>
 #include <GDT.h>
+#include <Hardware/Screen.h>
 
 struct CPUState {
 
@@ -30,18 +31,31 @@ struct CPUState {
 } __attribute__((packed));
 
 
+enum TaskState
+  { TASK_RUNNING = 0
+  , TASK_READY   = 1
+  , TASK_BLOCK   = 2
+  , TASK_SLEEP   = 3
+  , TASK_ZOMIE   = 4
+  , TASK_ERROR   = 5
+  } ;
 struct Task {
 
   uint8_t stack[4096]; // 4 KiB
   CPUState* cpustate;
+  TaskState state;
+  uint8_t priority;
+  uint8_t alarm;
+  uint8_t signal;
 
-  Task(GDT *gdt, void f());
+  Task(GDT *gdt, void f(), uint8_t priority);
   ~Task();
 };
 
+#define MAX_TASK 128
 struct Tasks {
 
-  Task* tasks[256];
+  Task* tasks[MAX_TASK];
   int num;
   int current;
 
@@ -49,8 +63,9 @@ struct Tasks {
   ~Tasks();
   bool add(Task* task);
   CPUState* schedule(CPUState* cpustate);
-};
 
+  void show();
+};
 //Tasks tasks;
 
 

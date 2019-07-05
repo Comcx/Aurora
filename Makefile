@@ -17,6 +17,7 @@ objects = obj/Loader.o \
           obj/Hardware/Mouse.o \
           obj/Computer.o \
           obj/Shell/Shell.o \
+          obj/Shell/Lex.o \
           obj/Kernel.o
 
 obj/%.o: src/%.cpp

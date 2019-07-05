@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#include <Types.h>
+#include <Util/Type.h>
 #include <Module.h>
 
 class Screen : public Module {

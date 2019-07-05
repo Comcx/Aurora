@@ -10,7 +10,7 @@ void Shell::start() {//just for basic test!!
   char tmp[256];
   while(loop) {
     printf("\n> ");
-    while(true) {
+    while(true) {//printf("task2\n");
       if(Files::stdin.isFlushing()) {
         printf("You typed ");
         Files::stdin.read(tmp);

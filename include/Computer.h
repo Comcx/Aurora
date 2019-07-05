@@ -1,7 +1,7 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
 
-#include <Types.h>
+#include <Util/Type.h>
 #include <Module.h>
 #include <GDT.h>
 #include <IDT.h>
@@ -9,6 +9,7 @@
 #include <Hardware/Keyboard.h>
 #include <Hardware/Mouse.h>
 #include <Shell/Shell.h>
+#include <Shell/Lex.h>
 #include <Time.h>
 
 struct Skele {
@@ -19,7 +20,7 @@ struct Skele {
   Keyboard *keyboard;
   Mouse    *mouse;
 
-  Shell    *shell;
+  //  Shell    *shell;
 };
 
 
@@ -32,7 +33,7 @@ public:
   Keyboard *keyboard;
   Mouse    *mouse;
 
-  Shell    *shell;
+  //Shell    *shell;
 
   uint8_t index;
   Module *module[256]; //256 max here
