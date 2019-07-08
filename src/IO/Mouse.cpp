@@ -1,4 +1,4 @@
-#include <Hardware/Mouse.h>
+#include <IO/Mouse.h>
 
 
 void printf(char *s);

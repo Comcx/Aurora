@@ -3,7 +3,7 @@
 
 #include <Util/Type.h>
 #include <Module.h>
-#include <Hardware/Screen.h>
+#include <IO/Screen.h>
 #include <File/File.h>
 
 class Shell : public Module {

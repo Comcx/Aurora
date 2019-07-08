@@ -3,8 +3,8 @@
 
 #include <Util/Type.h>
 #include <Module.h>
-#include <Hardware/Screen.h>
-#include <Hardware/IO.h>
+#include <IO/Screen.h>
+#include <IO/IO.h>
 #include <GDT.h>
 #include <Task.h>
 

@@ -3,7 +3,7 @@
 
 #include <Util/Type.h>
 #include <GDT.h>
-#include <Hardware/Screen.h>
+#include <IO/Screen.h>
 
 struct CPUState {
 

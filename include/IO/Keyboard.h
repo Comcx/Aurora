@@ -2,8 +2,8 @@
 #define KEYBOARD_H
 
 #include <Util/Type.h>
-#include <Hardware/Screen.h>
-#include <Hardware/IO.h>
+#include <IO/Screen.h>
+#include <IO/IO.h>
 #include <IDT.h>
 #include <File/File.h>
 

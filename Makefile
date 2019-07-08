@@ -6,15 +6,15 @@ LDPARAMS = -melf_i386
 objects = obj/Loader.o \
           obj/GDT.o \
           obj/Module.o \
-          obj/Hardware/Screen.o \
+          obj/IO/Screen.o \
           obj/File/File.o \
-          obj/Hardware/IO.o \
+          obj/IO/IO.o \
           obj/Interrupts.o \
           obj/Task.o \
           obj/Time.o \
           obj/IDT.o \
-          obj/Hardware/Keyboard.o \
-          obj/Hardware/Mouse.o \
+          obj/IO/Keyboard.o \
+          obj/IO/Mouse.o \
           obj/Computer.o \
           obj/Shell/Shell.o \
           obj/Shell/Lex.o \

@@ -1,4 +1,4 @@
-#include <Hardware/Screen.h>
+#include <IO/Screen.h>
 
 Screen::Screen() {
 }

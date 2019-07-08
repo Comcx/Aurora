@@ -2,8 +2,8 @@
 #define TIME_H
 
 #include <Util/Type.h>
-#include <Hardware/IO.h>
-#include <Hardware/Screen.h>
+#include <IO/IO.h>
+#include <IO/Screen.h>
 
 uint8_t CMOSRead(uint8_t addr);
 

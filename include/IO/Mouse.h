@@ -3,7 +3,7 @@
 
 #include <Util/Type.h>
 #include <Module.h>
-#include <Hardware/IO.h>
+#include <IO/IO.h>
 #include <IDT.h>
 
 const int mouseId = 0x21;
